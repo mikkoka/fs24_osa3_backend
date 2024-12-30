@@ -1,0 +1,27 @@
+{
+  "name": "fs2024_osa3",
+  "version": "1.0.0",
+  "description": "fs2024 p3 backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rm -rf dist && cd ../fullstack2024/osa3/puhelinluettelo/ && npm run build && cp -r dist ../../../fs24_osa3_backend",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",
+    "logs:prod": "fly logs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9",
+    "nodemon": "^3.1.9"
+  }
+}
+
