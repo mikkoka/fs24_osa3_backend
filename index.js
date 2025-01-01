@@ -1,7 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
-const maxRandomInt = 999999999
 const cors = require('cors')
 require('dotenv').config()
 const Person = require('./models/person')
@@ -37,7 +36,7 @@ app.get('/info', (request, response, next) => {
       <h3>Hello World! Phonebook has info on ${count} persons!</h3>
       <p>${Date()}</p>
     </div>`)
-}).catch(error => next(error))
+  }).catch(error => next(error))
 })
 
 app.get('/api/persons', (request, response, next) => {
@@ -56,7 +55,7 @@ app.post('/api/persons', (request, response, next) => {
     })
 
   } else {
-    newPerson = new Person({...body, number: body.number.replace(/\D/g, "-")})
+    const newPerson = new Person({...body, number: body.number.replace(/\D/g, '-')})
     newPerson.save().then(p => {
       response.json(p)
     }).catch(error => next(error))
@@ -69,13 +68,13 @@ app.get('/api/persons/:id', (request, response, next) => {
     console.log(pers)
     response.json(pers)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -85,7 +84,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
 
-  Person.findByIdAndUpdate(request.params.id, { number: body.number.replace(/\D/g, "-") }, { new: true, runValidators: true, context: 'query'  })
+  Person.findByIdAndUpdate(request.params.id, { number: body.number.replace(/\D/g, '-') }, { new: true, runValidators: true, context: 'query'  })
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
